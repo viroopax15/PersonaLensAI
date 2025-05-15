@@ -1,0 +1,159 @@
+
+---
+
+## Entities & Attributes
+
+### 1. **User**
+Stores authenticated user details.
+
+| Field           | Type        | Description                       |
+|----------------|-------------|-----------------------------------|
+| user_id         | UUID (PK)   | Unique identifier                 |
+| email           | String      | User email                        |
+| name            | String      | Full name                         |
+| role            | Enum        | [admin, analyst, viewer]          |
+| created_at      | Timestamp   | Account creation time             |
+| last_login      | Timestamp   | Last login timestamp              |
+| persona_settings| JSONB       | User-defined persona preferences  |
+
+---
+
+### 2. **Query**
+Represents a single natural language input from the user.
+
+| Field           | Type        | Description                           |
+|----------------|-------------|---------------------------------------|
+| query_id        | UUID (PK)   | Unique identifier                     |
+| user_id         | UUID (FK)   | References User                       |
+| input_text      | Text        | The natural language query            |
+| parsed_entities | JSONB       | Extracted entities (e.g., topics, orgs) |
+| timeframe       | Text        | Inferred or selected time range       |
+| created_at      | Timestamp   | Time of submission                    |
+
+---
+
+### 3. **QueryResult**
+Stores intermediate results from processing a query.
+
+| Field            | Type        | Description                            |
+|-----------------|-------------|----------------------------------------|
+| result_id        | UUID (PK)   | Unique identifier                      |
+| query_id         | UUID (FK)   | References Query                       |
+| status           | Enum        | [pending, complete, failed]           |
+| total_hits       | Integer     | Number of matching content items       |
+| processing_time  | Float       | Time taken to process in seconds       |
+| raw_result_blob  | JSONB       | Cached raw API results                 |
+| created_at       | Timestamp   | Time of processing completion          |
+
+---
+
+### 4. **SourceContent**
+Stores metadata and text of each data item from APIs (news, social, etc.).
+
+| Field             | Type        | Description                              |
+|------------------|-------------|------------------------------------------|
+| content_id        | UUID (PK)   | Unique identifier                        |
+| source_type       | Enum        | [news, twitter, reddit, gov_data]        |
+| source_name       | String      | E.g., BBC, Twitter                       |
+| url               | Text        | Original link                            |
+| title             | String      | Headline or post title                   |
+| text              | Text        | Full body text                           |
+| published_at      | Timestamp   | Original publish date                    |
+| author            | String      | Optional author name                     |
+| language          | String      | ISO language code                        |
+| metadata          | JSONB       | Additional tags, hashtags, geo info      |
+
+---
+
+### 5. **SentimentScore**
+Stores sentiment analysis results for each content item.
+
+| Field              | Type        | Description                              |
+|-------------------|-------------|------------------------------------------|
+| score_id           | UUID (PK)   | Unique identifier                        |
+| content_id         | UUID (FK)   | References SourceContent                 |
+| sentiment_label    | Enum        | [positive, neutral, negative]            |
+| sentiment_score    | Float       | Score between -1 (neg) and +1 (pos)      |
+| emotion_tags       | JSONB       | E.g., {"joy": 0.8, "anger": 0.2}         |
+| model_version      | String      | Identifier of the NLP model used         |
+| created_at         | Timestamp   | Analysis timestamp                       |
+
+---
+
+### 6. **PersonaView**
+Defines persona-specific filtering and relevance scoring for each content item.
+
+| Field              | Type        | Description                                 |
+|-------------------|-------------|---------------------------------------------|
+| view_id            | UUID (PK)   | Unique identifier                           |
+| content_id         | UUID (FK)   | References SourceContent                    |
+| persona_type       | String      | E.g., "Investor", "Marketer"                |
+| relevance_score    | Float       | Custom score for persona fit                |
+| tone_adjustment    | JSONB       | Summary tone modifications per persona      |
+| created_at         | Timestamp   | Processing timestamp                        |
+
+---
+
+### 7. **Summary**
+Stores AI-generated summaries tailored by persona.
+
+| Field              | Type        | Description                                |
+|-------------------|-------------|--------------------------------------------|
+| summary_id         | UUID (PK)   | Unique identifier                          |
+| result_id          | UUID (FK)   | References QueryResult                     |
+| persona_type       | String      | Summary was generated for this persona     |
+| short_summary      | Text        | 2-3 sentence executive summary             |
+| full_summary       | Text        | Multi-paragraph deep summary               |
+| keywords           | JSONB       | Key terms extracted                        |
+| summary_style      | Enum        | [bullet, narrative, question-answer]       |
+| created_at         | Timestamp   | Summary generation time                    |
+
+---
+
+### 8. **Feedback**
+Captures user feedback on summaries and insights.
+
+| Field              | Type        | Description                                |
+|-------------------|-------------|--------------------------------------------|
+| feedback_id        | UUID (PK)   | Unique identifier                          |
+| user_id            | UUID (FK)   | References User                            |
+| summary_id         | UUID (FK)   | References Summary                         |
+| relevance_rating   | Integer     | 1 to 5 scale                               |
+| notes              | Text        | Optional free-text feedback                |
+| submitted_at       | Timestamp   | Feedback timestamp                         |
+
+---
+
+## Optional: Caching & Lookup Tables
+
+### DataSourceCache (for deduplication & rate limiting)
+
+| Field              | Type        | Description                                |
+|-------------------|-------------|--------------------------------------------|
+| hash_id            | UUID (PK)   | Hash of URL or content                     |
+| source_type        | String      | e.g., "news", "reddit"                     |
+| content_blob       | JSONB       | Raw cached API response                    |
+| fetched_at         | Timestamp   | Time of fetch                              |
+
+---
+
+## Relationships Summary
+
+- `User` has many `Query`
+- `Query` has one `QueryResult`
+- `QueryResult` is derived from many `SourceContent` entries
+- `SourceContent` has one `SentimentScore`
+- `SourceContent` can be evaluated through multiple `PersonaView`
+- `QueryResult` has many `Summary` (one per persona)
+- `Summary` can receive many `Feedback` entries
+
+---
+
+## Notes
+
+- Use **JSONB** fields for flexible data (tags, metadata, NER outputs, tone adjustments).
+- **UUIDs** recommended for global entity referencing and secure API communication.
+- Model can be adapted for **event sourcing** or **graph-based querying** (e.g., Neo4j) if needed for deeper entity relationships.
+
+---
+

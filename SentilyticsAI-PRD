@@ -1,0 +1,146 @@
+# Product Requirements Document (PRD)
+
+## Product Name
+**Sentilytics AI**
+
+## Overview
+Sentilytics AI is a natural language-driven analytics tool that enables users to input queries in plain English to retrieve sentiment-based insights and summaries from news articles, social media, and open data sources. The output is personalized based on user-defined or prebuilt personas (e.g., investor, activist, marketer, etc.), providing targeted sentiment analysis and intelligent summarization.
+
+---
+
+## Problem Statement
+In today's fast-paced world, professionals across industries are overwhelmed by data streams from news media, social platforms, and open government or corporate datasets. Extracting relevant sentiment-aligned insights is time-consuming, inconsistent, and lacks personalization. There's a need for a single tool that can interpret natural queries, scan diverse sources, analyze sentiment, and present persona-tailored summaries.
+
+---
+
+## Goals & Objectives
+
+- Allow users to input natural language questions (e.g., "What is the public sentiment about Tesla this week?")
+- Aggregate content from multiple open data sources (news APIs, social media feeds, public datasets)
+- Perform sentiment analysis using NLP and ML techniques
+- Provide persona-based filtered views and summaries
+- Deliver actionable, concise, and context-aware insights
+
+---
+
+## Features
+
+### 1. Natural Language Query Input
+- Support for plain English input
+- Context recognition (entity detection, timeframe parsing, sentiment targets)
+
+### 2. Data Aggregation
+- Integrate with APIs such as:
+  - NewsAPI, Google News
+  - X (formerly Twitter) API, Reddit API
+  - Open Data portals (data.gov, EU Open Data)
+- Stream and cache content from sources
+- Support custom integration hooks
+
+### 3. Sentiment Analysis Engine
+- NLP pipeline to perform:
+  - Entity extraction (NER)
+  - Sentiment scoring (positive, neutral, negative)
+  - Emotion tagging (joy, anger, surprise, etc.)
+- Real-time and historical sentiment tracking
+
+### 4. Persona Framework
+- Built-in personas (Investor, Marketer, Policy Maker, Journalist, etc.)
+- Custom persona creation (tags, interests, tone preference)
+- Persona-specific filtering and summary tone adaptation
+
+### 5. Summary & Visualization
+- Generate short and long-form summaries based on persona
+- Visualizations: sentiment graphs, word clouds, timeline trends
+- Export formats: PDF, HTML, Markdown, JSON
+
+### 6. Feedback & Learning Loop
+- User feedback collection on accuracy/relevance
+- Fine-tune models based on interactions
+- Optional human-in-the-loop moderation
+
+---
+
+## User Stories
+
+### As a market analyst,
+I want to ask "What's the investor sentiment around Apple post-earnings?"
+So that I can get a summary of investor-aligned media and social sentiment trends.
+
+### As a journalist,
+I want to ask "How are people reacting to the new climate policy?"
+So that I can receive a sentiment breakdown from news and social media tailored for public and policy perspectives.
+
+### As a product marketer,
+I want to know "What are customers saying about our latest release?"
+So that I can receive a concise summary categorized by emotion and relevance.
+
+---
+
+## Technical Requirements
+
+- **Frontend**: React / Next.js interface with natural language query input
+- **Backend**: Node.js / Python API for processing, ML model inference, persona logic
+- **NLP Models**: OpenAI GPT, HuggingFace transformers, VADER, or custom fine-tuned BERT
+- **Database**: PostgreSQL or MongoDB for user data, Elasticsearch for indexed content
+- **Deployment**: Dockerized microservices, hosted on AWS/GCP
+- **Authentication**: OAuth 2.0, API key-based access
+- **Analytics**: Segment / Mixpanel integration for usage data
+
+---
+
+## KPIs
+
+- Query-to-insight latency < 5 seconds
+- Sentiment accuracy ≥ 85%
+- Summary satisfaction score ≥ 4.5 / 5
+- Persona relevance accuracy ≥ 90%
+
+---
+
+## Milestones
+
+| Milestone                     | Timeline     |
+|------------------------------|--------------|
+| Requirements Finalization     | Week 1       |
+| Data Source Integration       | Week 2–4     |
+| NLP + Sentiment Engine MVP    | Week 5–6     |
+| Persona Layer Implementation  | Week 7–8     |
+| Frontend Interface             | Week 9–10    |
+| Beta Launch                   | Week 11      |
+| Feedback & Iteration          | Week 12–13   |
+| Public Launch                 | Week 14      |
+
+---
+
+## Risks & Mitigations
+
+- **Data source reliability**: Use fallback APIs, cache content.
+- **Model accuracy bias**: Continuous fine-tuning, diverse training data.
+- **Overload of irrelevant data**: Use strong filters, keyword weighting, and persona constraints.
+- **Privacy concerns**: Anonymize social data, respect data source policies.
+
+---
+
+## Open Questions
+
+- Should sentiment summaries include citations or source-level confidence scores?
+- Do we allow integration with internal data sources (Slack, CRM, etc.)?
+- What are the thresholds for persona-specific sentiment shifts?
+
+---
+
+## Appendix
+
+### Competitive Tools
+- Brandwatch
+- Meltwater
+- Sprinklr
+- Talkwalker
+*(Sentilytics AI differentiates through natural language input + persona lens)*
+
+### Persona Examples
+- **Investor**: Focus on market-moving news, financial analyst sentiment, stock forums
+- **Marketer**: Focus on customer reviews, product mentions, emotion signals
+- **Activist**: Emphasize ethical, social justice signals in media and reactions
+

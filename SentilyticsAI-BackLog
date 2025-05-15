@@ -1,0 +1,198 @@
+# 📋 Sentilytics AI – Product Backlog
+
+## 🧩 Epic 1: Natural Language Query Interface
+
+### User Story 1.1
+**As a** user,  
+**I want** to type a question like "What’s the sentiment around AI in the past week?",  
+**so that** I can get insights without needing structured filters.
+
+### User Story 1.2
+**As a** user,  
+**I want** the system to recognize dates, company names, events, and locations from my input,  
+**so that** it can understand the context and refine the query.
+
+### User Story 1.3  
+**As a** product owner,  
+**I want** to store each query and track usage per user,  
+**so that** I can analyze feature adoption.
+
+---
+
+## 🌐 Epic 2: Data Aggregation & Ingestion
+
+### User Story 2.1
+**As a** system,  
+**I want** to fetch data from news APIs (e.g., NewsAPI, Google News),  
+**so that** I can populate the query results with relevant news stories.
+
+### User Story 2.2
+**As a** system,  
+**I want** to collect tweets and Reddit posts using official APIs,  
+**so that** I can include social sentiment in analysis.
+
+### User Story 2.3  
+**As a** system,  
+**I want** to normalize content from various sources,  
+**so that** it can be processed uniformly for NLP tasks.
+
+### User Story 2.4  
+**As a** system,  
+**I want** to cache and deduplicate API responses,  
+**so that** we reduce load and speed up analysis.
+
+---
+
+## 🧠 Epic 3: NLP Pipeline & Sentiment Analysis
+
+### User Story 3.1
+**As a** data scientist,  
+**I want** to extract entities (companies, people, locations) from content,  
+**so that** we can categorize and index data.
+
+### User Story 3.2
+**As a** user,  
+**I want** to see whether the general sentiment is positive, neutral, or negative,  
+**so that** I can understand public mood quickly.
+
+### User Story 3.3
+**As a** user,  
+**I want** sentiment scores visualized over time,  
+**so that** I can identify trends and shifts.
+
+### User Story 3.4  
+**As a** product manager,  
+**I want** to track and log the NLP model version used,  
+**so that** we can debug or audit sentiment shifts accurately.
+
+---
+
+## 🧑‍💼 Epic 4: Persona-Based Views
+
+### User Story 4.1
+**As a** user,  
+**I want** to select a persona like "Investor" or "Marketer",  
+**so that** I get results curated to my role and interests.
+
+### User Story 4.2
+**As a** user,  
+**I want** to create a custom persona with topic preferences,  
+**so that** I can personalize my sentiment analysis experience.
+
+### User Story 4.3
+**As a** system,  
+**I want** to apply different relevance weights per persona,  
+**so that** summaries match the user's intent and focus.
+
+---
+
+## 🧾 Epic 5: Summarization & Insights Delivery
+
+### User Story 5.1
+**As a** user,  
+**I want** a 2–3 sentence executive summary per query,  
+**so that** I can get high-level insights fast.
+
+### User Story 5.2  
+**As a** user,  
+**I want** a long-form summary with breakdowns by source and sentiment,  
+**so that** I can understand the full narrative.
+
+### User Story 5.3
+**As a** marketer,  
+**I want** summaries adapted in tone and vocabulary to my persona,  
+**so that** they align with my communication style.
+
+---
+
+## 📊 Epic 6: Visualization & Reporting
+
+### User Story 6.1
+**As a** user,  
+**I want** to see sentiment graphs and word clouds,  
+**so that** I can visualize key patterns and signals.
+
+### User Story 6.2
+**As a** user,  
+**I want** to export results in PDF or Markdown,  
+**so that** I can share them with others or store them for records.
+
+### User Story 6.3
+**As a** team lead,  
+**I want** to generate reports filtered by persona and time,  
+**so that** I can make data-driven decisions.
+
+---
+
+## 🔐 Epic 7: User Management & Access Control
+
+### User Story 7.1
+**As a** new user,  
+**I want** to register and set up my account securely,  
+**so that** I can start using the tool right away.
+
+### User Story 7.2
+**As a** returning user,  
+**I want** to log in and see my saved queries and preferences,  
+**so that** I can continue where I left off.
+
+### User Story 7.3
+**As a** system admin,  
+**I want** to assign roles and manage user access,  
+**so that** I can control feature access by team.
+
+---
+
+## 📥 Epic 8: Feedback Loop & Learning
+
+### User Story 8.1
+**As a** user,  
+**I want** to rate the relevance of summaries,  
+**so that** the system can improve over time.
+
+### User Story 8.2
+**As a** data team,  
+**I want** to review low-rated results and retrain models,  
+**so that** we improve sentiment and summarization accuracy.
+
+---
+
+## 🛠️ Epic 9: Admin & Ops
+
+### User Story 9.1
+**As a** DevOps engineer,  
+**I want** to monitor API usage, model performance, and uptime,  
+**so that** I can ensure system reliability.
+
+### User Story 9.2
+**As a** data compliance officer,  
+**I want** logs of what sources were used per query,  
+**so that** we can ensure data compliance and auditability.
+
+---
+
+## 💡 Epic 10: Future Enhancements
+
+### User Story 10.1
+**As a** power user,  
+**I want** to integrate internal company data sources (e.g., Slack, CRM),  
+**so that** I can analyze sentiment across private data.
+
+### User Story 10.2  
+**As a** strategist,  
+**I want** to set sentiment alerts on key topics,  
+**so that** I get notified when major shifts occur.
+
+---
+
+## ✅ Acceptance Criteria Format (Example)
+
+> For **User Story 4.1** (Persona Selection):
+
+- [ ] User can select from at least 5 predefined personas
+- [ ] Persona selection persists per user
+- [ ] Query results and summaries change depending on selected persona
+- [ ] Different content is highlighted or deprioritized based on persona
+
+---
+
